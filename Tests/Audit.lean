@@ -1,5 +1,6 @@
 import Examples.DSL
 import Examples.Search
+import Examples.IsolateZeroWidths
 
 open Abstractification
 
@@ -17,3 +18,11 @@ open Abstractification
 
 -- Generic finite certification is also audited for its proof dependencies.
 #print axioms Abstractification.certify
+
+#audit_install Examples.IsolateZeroWidths.installed32
+#print axioms Examples.IsolateZeroWidths.goodFill_equivalent
+#print axioms Examples.IsolateZeroWidths.exact32
+#print axioms Examples.IsolateZeroWidths.recursive_eq_loop
+#print axioms Examples.IsolateZeroWidths.installed
+#print axioms Examples.IsolateZeroWidths.installed32
+#print axioms Examples.IsolateZeroWidths.wrongFill_rejected

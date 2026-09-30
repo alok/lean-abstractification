@@ -19,8 +19,9 @@ lake build
 lake exe abstractificationDemo
 ```
 
-The checks build both libraries, audit installed declarations, require 11 negative fixtures to fail
-for their intended reasons, and run the demo. CI repeats the suite on Linux using pinned actions.
+The checks build both libraries, audit installed declarations, replay them with `leanchecker`, require
+14 negative fixtures to fail for their intended reasons, and run the demo. CI repeats the suite on
+Linux using pinned actions.
 
 ## A concrete end-to-end sketch
 
@@ -28,6 +29,13 @@ for their intended reasons, and run the demo. CI repeats the suite on Linux usin
 `~(x + left) & (x + right)` to **8-bit wrapping words**. An independent reference scans for the least
 significant zero bit. Lean proves that fill `(0, 1)` agrees with the reference on **all 256 inputs**,
 including overflow at 255. `(0, 0)` has a certified counterexample at input zero.
+
+[Examples/IsolateZeroWidths.lean](Examples/IsolateZeroWidths.lean) strengthens that certificate to
+**every width and every input**. `goodFill_equivalent` proves the filled sketch equals the positional
+scan; `exact32` specializes it to the paper's 32-bit domain. Width induction handles wrapping carry
+and overflow, with no input enumeration, native decision, or extra input assumption. The audited
+`installed32` carries this proof directly. The original 8-bit reference and demo remain unchanged.
+See the [proof and assumptions](docs/strong-certificate.md).
 
 [Examples/Search.lean](Examples/Search.lean) starts with a replay corpus `[255]`, tries a fixed list
 of closed proposal values, and accumulates counterexamples. An incorrect fill passes replay but
@@ -40,9 +48,10 @@ proof required for installing the selected fill.
 | `[127, 255]` | bit sketch `(0, 1)` | 8, versus 16 for scanning |
 | `[0, 0, 0, 0]` | reference scan | 4, versus 16 for the bit sketch |
 
-These are kernel-checked results about an explicit toy cost model. They are **not elapsed-time
-measurements**, a speedup claim, a 32-bit proof, or a reproduction of the paper's Rust allocation
-experiment. The proposer is deterministic and finite; it does not invoke an LLM or external solver.
+These ranking results concern the 8-bit demo's explicit toy cost model. They are **not elapsed-time
+measurements**, a speedup claim, or a reproduction of the paper's Rust allocation experiment. The
+stronger correctness theorem does not establish measured performance. The proposer is deterministic
+and finite; it does not invoke an LLM or external solver.
 
 ## Lean DSL and metaprogramming
 
@@ -66,8 +75,9 @@ def doubled : Installed doubling :=
 `abstractify` generates the fixed boundary. The `install%` elaborator gets the expected boundary
 from Lean's type checker, checks the fill and proof, and audits transitive constants, types, and
 reachable local let bindings. Its explicit allowlist is `propext`, `Classical.choice`, and `Quot.sound`.
-The bit certificates actually depend only on `propext` and `Quot.sound`; the doubling example has
-no axiom dependencies. `sorryAx`, custom axioms, and native-decision trust axioms are rejected.
+The original 8-bit certificates depend only on `propext` and `Quot.sound`; the width-parametric
+certificate uses all three standard axioms. The doubling example has no axiom dependencies.
+`sorryAx`, custom axioms, and native-decision trust axioms are rejected.
 
 A `draft_hole% name` reports its expected type and local context and **fails elaboration**. It never
 supplies an admitted or default executable value. This provides one building block for Agda-style

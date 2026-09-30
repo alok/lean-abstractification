@@ -10,7 +10,7 @@ Primary conceptual source:
   SHA-256: 01f11a4c4ee0186effaf46ded10e42b2761cbb29d249e61b2bd6645357f3bf0c
 The paper remains the author's work. Its PDF and source are not redistributed here.
 The rightmost-zero sketch originates in the sketching literature cited by the paper,
-including Armando Solar-Lezama's 2008 dissertation. Our forthcoming Lean example is an
+including Armando Solar-Lezama's 2008 dissertation. Our Lean examples are an
 adaptation, not a claim of a novel bit trick or a reproduction of the Rust experiment.
 
 Related interactive-hole work inspected, not copied:

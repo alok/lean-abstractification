@@ -27,8 +27,10 @@ related property-testing work, not an identified source for this prototype. The 
 license is unknown. No upstream code or paper PDF is redistributed here.
 
 The rightmost-zero sketch is adapted from the paper's Figures 2–3, which credit Armando Solar-Lezama's
-[2008 dissertation](https://people.csail.mit.edu/asolar/papers/thesis.pdf). The new artifact formalizes
-that example at an explicitly smaller 8-bit domain; it makes no novelty claim for the bit expression.
+[2008 dissertation](https://people.csail.mit.edu/asolar/papers/thesis.pdf). The search demo formalizes
+that example at a smaller 8-bit domain. A separate width-parametric theorem covers every finite width,
+including the paper's 32-bit domain, against the same positional scan and wrapping arithmetic.
+Neither the bit expression nor the underlying identity is claimed as new research.
 
 ## Typed editing holes and trust
 

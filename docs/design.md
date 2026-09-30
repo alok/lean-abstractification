@@ -19,6 +19,13 @@ all-input certificate. Explicit input enumeration is proved complete, not merely
 the domain. The search example adds a closed `Plan` selecting scan or a filled mask expression;
 whole-body and constant holes illustrate two granularities discussed by the paper.
 
+The stronger example preserves that positional reference at arbitrary widths. A recursive low-bit
+scan is a proof helper, with a separate theorem relating it to the positional scan. Width induction
+proves the filled expression correct, including modular overflow and width zero. `installed w`
+receives the theorem directly through `install%`; it needs no exhaustive decision procedure. At
+width 32 this models the paper's unsigned arithmetic, without claiming Rust runtime refinement.
+The [certificate notes](strong-certificate.md) state the exact assumptions and proof steps.
+
 ## Proposals, testing, ranking, certification
 
 `SearchState.best` is a tested candidate. `consider` checks the current corpus, then the supplied
@@ -43,7 +50,8 @@ than an experimental performance claim.
 type to elaborate a fill and proof. It resolves metavariables and audits constants plus their
 transitive axiom dependencies, the whole installed type, and reachable local declarations and their
 let values. The allowlist is the standard Lean axioms `propext`, `Classical.choice`, and `Quot.sound`.
-The finite bit proof uses only the first and third. The Nat doubling proof uses none.
+The finite bit proof uses only the first and third; the width-parametric proof uses all three. The
+Nat doubling proof uses none.
 
 `draft_hole% name` gives the expected type and local context in a failing diagnostic. Draft code
 therefore cannot silently become an executable admitted value. Agda-style refinement, case splitting,
@@ -58,7 +66,6 @@ verifier are protected outside that proposer's write scope.
 
 ## Next research increments
 
-- Prove the bit sketch for arbitrary widths or the paper's 32-bit domain without exhaustive search.
 - Add observer-based data-representation examples and operation-trace contracts.
 - Add editor integration while keeping draft obligations separate from certified execution.
 - Design a proposal-only external agent protocol with a protected verifier and proof replay.
