@@ -1,0 +1,23 @@
+lean-abstractification source and attribution notice
+
+Direction and project scope: Alok.
+Implementation, research assistance, and AI review: OpenAI Codex (GPT-6.1 Sol).
+No claim is made that a human has checked the code or the paper interpretation.
+
+Primary conceptual source:
+  Alperen Keleş, Abstractification (11-page preprint, downloaded 2026-09-30)
+  https://alperenkeles.com/documents/abstractification.pdf
+  SHA-256: 01f11a4c4ee0186effaf46ded10e42b2761cbb29d249e61b2bd6645357f3bf0c
+The paper remains the author's work. Its PDF and source are not redistributed here.
+The rightmost-zero sketch originates in the sketching literature cited by the paper,
+including Armando Solar-Lezama's 2008 dissertation. Our forthcoming Lean example is an
+adaptation, not a claim of a novel bit trick or a reproduction of the Rust experiment.
+
+Related interactive-hole work inspected, not copied:
+  https://github.com/brendanzab/lean-holes
+  https://github.com/alok/lean-holes
+The local checkout was dirty, so no local contents were published or altered.
+
+Lean 4 and its standard library are required via the pinned elan toolchain, not vendored.
+Their own licenses apply to their code. This repository's original code is licensed in LICENSE.
+No third-party implementation code has been copied into this increment.

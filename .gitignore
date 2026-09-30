@@ -1,0 +1,9 @@
+.lake/
+*.olean
+*.ilean
+*.trace
+.DS_Store
+.env
+.env.*
+*.pem
+*.key
